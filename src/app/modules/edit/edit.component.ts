@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { DataListI } from 'src/app/models/data-list.interface';
 import { HomeService } from 'src/app/services/home.service';
 
@@ -12,7 +12,7 @@ import { HomeService } from 'src/app/services/home.service';
 export class EditComponent implements OnInit {
   form!: FormGroup;
   public id! : number
-  constructor(private _homeService : HomeService, private route : ActivatedRoute) { }
+  constructor(private _homeService : HomeService, private route : ActivatedRoute, private router: Router) { }
 
   ngOnInit(): void {
     this.getIdParams()
@@ -47,8 +47,12 @@ export class EditComponent implements OnInit {
       userId: 1
      }
      console.log(data)
-    this._homeService.editItem(data)
-    .subscribe(console.log)
+    this._homeService.editItem(this.id, data)
+    .subscribe(res =>{
+      if (res){
+        this.router.navigate(['']);
+      }
+    })
   }
 
 }
