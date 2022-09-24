@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { DataListI } from 'src/app/models/data-list.interface';
 import { HomeService } from 'src/app/services/home.service';
 import Swal from 'sweetalert2';
 
