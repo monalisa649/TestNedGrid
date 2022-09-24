@@ -14,7 +14,7 @@
       </thead>
       <tbody>
         <tr *ngFor="let data of listData">
-          <td (click)="goItem(data.id)">{{data.id}}</td>
+          <td style="cursor: pointer;" (click)="goItem(data.id)">{{data.id}}</td>
           <td>{{data.title}}</td>
           <td>{{data.body}}</td>
           <td><button type="button" class="btn btn-danger" (click)="removeItem(data.id)">Eliminar</button></td>
