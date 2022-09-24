@@ -40,6 +40,25 @@ export class EditComponent implements OnInit {
     })
   }
 
+  get getTitle() {
+    return this.form.get('title');
+  }
+
+  get getBody() {
+    return this.form.get('body');
+  }
+
+  get isTitleValid (){
+    return this.getTitle?.touched && this.getTitle.invalid
+  }
+
+  get isBodyValid (){
+    return this.getBody?.touched && this.getBody.invalid
+  }
+
+
+
+
   public editItem(form : DataListI) {
     let data = {
       id : this.id,

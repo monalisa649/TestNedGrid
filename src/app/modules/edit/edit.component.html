@@ -8,15 +8,23 @@
       <div class="form-group p-4">
         <label for="exampleInputEmail1">Title</label>
         <input type="title" class="form-control" formControlName="title"  id="title" aria-describedby="title" placeholder="Enter title">
+        <div class="alert alert-danger" role="alert" *ngIf="isTitleValid">
+          El título debe tener más de 3 caracteres
+        </div>
+
 
       </div>
       <div class="form-group p-4">
         <label for="exampleInputPassword1">Body</label>
         <input type="body" class="form-control" id="body" formControlName="body"  placeholder="Body">
+        <div class="alert alert-danger" role="alert" *ngIf="isBodyValid">
+          El cuerpo debe tener más de 3 caracteres
+        </div>
       </div>
+
       <div class="col-md-12 d-flex justify-content-center mb-4 mt-4">
         <div class="w-75 justify-content-center d-flex">
-          <button class="btn btn-primary btn-rounded w-50" [disabled]="!form.valid" type="submit">
+          <button class="btn btn-primary btn-rounded w-50" [disabled]="!form.valid " type="submit">
             Guardar
           </button>
         </div>

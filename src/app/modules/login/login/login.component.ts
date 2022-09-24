@@ -30,6 +30,24 @@ export class LoginComponent implements OnInit {
     });
   }
 
+
+  get getEmail() {
+    return this.form.get('email');
+  }
+
+  get getPassword() {
+    return this.form.get('password');
+  }
+
+  get isEmailValid (){
+    return this.getEmail?.touched && this.getEmail.invalid
+  }
+
+  get isPasswordValid (){
+    return this.getPassword?.touched && this.getPassword.invalid
+  }
+
+
      public submitSignIn (forma : AuthI) {
       this._authService.signIn(forma)
       this.router.navigate(['/']);
