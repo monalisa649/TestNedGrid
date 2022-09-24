@@ -65,7 +65,7 @@ export class EditComponent implements OnInit {
     this._homeService.editItem(this.id, data)
     .subscribe(res =>{
       if (res){
-        this.router.navigate(['']);
+        this.router.navigate(['/home']);
       }
     })
   }

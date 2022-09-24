@@ -38,11 +38,9 @@ export class AddComponent implements OnInit {
 
    this._homeService.addItem(data).subscribe(res => {
     if (res){
-      this.router.navigate(['']);
+      this.router.navigate(['/home']);
     }
    })
-
-
    }
 
 
