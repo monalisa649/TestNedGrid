@@ -7,10 +7,16 @@ import { HomeComponent } from './modules/home/home.component';
 import { LoginComponent } from './modules/login/login/login.component';
 
 const routes: Routes = [
-  {path: '', component: HomeComponent, canActivate: [AuthGuard]},
+
+  {path: 'home', component: HomeComponent, canActivate: [AuthGuard]},
   {path: 'login',component: LoginComponent},
   {path: 'add',component: AddComponent, canActivate: [AuthGuard]},
   {path: 'edit/:id',component: EditComponent, canActivate: [AuthGuard]},
+  {
+    path: '',
+    redirectTo: '/login',
+    pathMatch: 'full'
+  },
   {path: '**', component: LoginComponent}
 ];
 

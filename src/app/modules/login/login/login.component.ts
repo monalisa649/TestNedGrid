@@ -50,7 +50,7 @@ export class LoginComponent implements OnInit {
 
      public submitSignIn (forma : AuthI) {
       this._authService.signIn(forma)
-      this.router.navigate(['/']);
+      this.router.navigate(['/home']);
      }
 
      public SignOut (forma : AuthI) {
