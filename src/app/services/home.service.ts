@@ -3,11 +3,11 @@ import { HttpClient } from '@angular/common/http';
 import { environment } from 'src/environments/environment';
 import { DataListI } from '../models/data-list.interface';
 
+
 @Injectable({
   providedIn: 'root'
 })
 export class HomeService {
-
   constructor(private _http: HttpClient) { }
 
 
@@ -26,6 +26,8 @@ export class HomeService {
   public editItem (id: number, data : DataListI) {
     return this._http.put(`${environment.API}/${id}`,{data})
   }
+
+
 
 }
 

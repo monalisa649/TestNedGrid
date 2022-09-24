@@ -36,7 +36,7 @@ export class HomeComponent implements OnInit {
       confirmButtonText: 'Eliminar'
     }).then((result) => {
       if (result.isConfirmed) {
-        this._homeService.removeItem(id).subscribe(console.log)
+        this._homeService.removeItem(id).subscribe()
         this.listData = this.listData.filter((d:any) => d.id !== id);
         Swal.fire(
           'Eliminado!',

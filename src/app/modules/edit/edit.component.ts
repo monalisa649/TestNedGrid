@@ -10,6 +10,7 @@ import { HomeService } from 'src/app/services/home.service';
   styleUrls: ['./edit.component.scss']
 })
 export class EditComponent implements OnInit {
+
   form!: FormGroup;
   public id! : number
   constructor(private _homeService : HomeService, private route : ActivatedRoute, private router: Router) { }
@@ -35,8 +36,6 @@ export class EditComponent implements OnInit {
   getIdParams() {
     this.route.params.subscribe(params => {
       this.id = params['id']
-      console.log(this.id)
-
     })
   }
 
@@ -57,15 +56,12 @@ export class EditComponent implements OnInit {
   }
 
 
-
-
   public editItem(form : DataListI) {
     let data = {
       id : this.id,
       ...form,
       userId: 1
      }
-     console.log(data)
     this._homeService.editItem(this.id, data)
     .subscribe(res =>{
       if (res){
