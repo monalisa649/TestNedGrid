@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { DataListI } from 'src/app/models/data-list.interface';
 import { HomeService } from 'src/app/services/home.service';
@@ -12,24 +12,23 @@ import { HomeService } from 'src/app/services/home.service';
 export class EditComponent implements OnInit {
 
   form!: FormGroup;
-  public id! : number
-  constructor(private _homeService : HomeService, private route : ActivatedRoute, private router: Router) { }
+  public id! : number;
+
+  constructor(private _homeService : HomeService,
+              private route : ActivatedRoute,
+              private router: Router,
+              public fb: FormBuilder) { }
 
   ngOnInit(): void {
+
     this.getIdParams()
+    this.builForm()
+  }
 
-    this.form = new FormGroup({
-      title: new FormControl(null, [
-        Validators.required,
-        Validators.minLength(3),
-
-
-      ]),
-      body: new FormControl(null, [
-        Validators.required,
-        Validators.minLength(3),
-
-      ]),
+  private builForm() {
+    this.form = this.fb.group({
+      title: ['', [Validators.required, Validators.minLength(3)]],
+      body: ['', [Validators.required, Validators.minLength(3)]],
     });
   }
 
@@ -65,7 +64,7 @@ export class EditComponent implements OnInit {
     this._homeService.editItem(this.id, data)
     .subscribe(res =>{
       if (res){
-        this.router.navigate(['/home']);
+        this.router.navigate(['/']);
       }
     })
   }

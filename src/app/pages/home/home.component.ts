@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { DataListI } from 'src/app/models/data-list.interface';
 import { HomeService } from 'src/app/services/home.service';
 import Swal from 'sweetalert2';
 
@@ -9,23 +10,29 @@ import Swal from 'sweetalert2';
   styleUrls: ['./home.component.scss']
 })
 export class HomeComponent implements OnInit {
-  public listData : any
+  public listData : DataListI[]=[]
+  public data :  DataListI[]=[]
 
-  constructor(private _homeService: HomeService, private router: Router) { }
+
+  constructor(private _homeService: HomeService,
+              private router: Router,
+              ) { }
 
   ngOnInit(): void {
     this.getData()
+
   }
 
   public getData (){
     this._homeService.getData()
     .subscribe((res: any) =>{
+      console.log(res)
       this.listData = res
-      console.log(this.listData)
     })
   }
 
-  public removeItem(id : number){
+
+  public removeItem(id : number | undefined){
     Swal.fire({
       title: 'Está seguro?',
       text: "Desea eliminar el item",
@@ -37,7 +44,7 @@ export class HomeComponent implements OnInit {
     }).then((result) => {
       if (result.isConfirmed) {
         this._homeService.removeItem(id).subscribe()
-        this.listData = this.listData.filter((d:any) => d.id !== id);
+        this.listData = this.listData.filter((element:any) => element.id !== id);
         Swal.fire(
           'Eliminado!',
           'El item ha sido eliminado.',
@@ -52,9 +59,12 @@ export class HomeComponent implements OnInit {
     this.router.navigate(['add']);
   }
 
-  public goItem(id: number){
+  public editItem(id: number | undefined ){
     this.router.navigate([`edit/${id}`]);
   }
 
+  ngOnDestroy(){
+   // this.subject$.unsubscribe()
+  }
 
 }
