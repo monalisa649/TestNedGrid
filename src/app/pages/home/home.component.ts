@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { DataListI } from 'src/app/models/data-list.interface';
 import { HomeService } from 'src/app/services/home.service';
+import { ShareDataService } from 'src/app/services/share-data.service';
 import Swal from 'sweetalert2';
 
 @Component({
@@ -16,20 +17,40 @@ export class HomeComponent implements OnInit {
 
   constructor(private _homeService: HomeService,
               private router: Router,
+              private shareDataService : ShareDataService
               ) { }
 
   ngOnInit(): void {
-    this.getData()
+    this.shareDataService.receiveData.subscribe(res => this.data = res)
+    //console.log(this.data)
+
+    this.getData(this.data)
 
   }
 
-  public getData (){
+    public getData (data:any){
+    //console.log(data,'dataadd')
     this._homeService.getData()
     .subscribe((res: any) =>{
-      console.log(res)
-      this.listData = res
+      if(data.id === 0){
+        this.listData = res
+      }else if (data.id >= 0){
+        console.log(data,'edit')
+        let newObject = {...data}
+      this.listData = res.filter((element:any) => element.id != data.id)
+      data.id !=0 ?  this.listData.push(newObject) : this.listData
+      this.listData.sort(function(a : any, b: any){return a.id - b.id})
+      //this.listData = newData
+      }/*else (data.id>100)
+      let otherObject = {...data.data, id: data.id}
+
+      this.listData = res.filter((element:any) => element.id != data.id)
+      data.id !=0 ?  this.listData.push(otherObject) : this.listData
+      this.listData.sort(function(a : any, b: any){return a.id - b.id})*/
+
     })
   }
+
 
 
   public removeItem(id : number | undefined){
@@ -63,8 +84,6 @@ export class HomeComponent implements OnInit {
     this.router.navigate([`edit/${id}`]);
   }
 
-  ngOnDestroy(){
-   // this.subject$.unsubscribe()
-  }
+
 
 }

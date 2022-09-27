@@ -3,6 +3,7 @@ import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms'
 import { Router } from '@angular/router';
 import { DataListI } from 'src/app/models/data-list.interface';
 import { HomeService } from 'src/app/services/home.service';
+import { ShareDataService } from 'src/app/services/share-data.service';
 
 @Component({
   selector: 'app-add',
@@ -14,7 +15,8 @@ export class AddComponent implements OnInit {
 
   constructor(private _homeService: HomeService,
               private router: Router,
-              public fb: FormBuilder) { }
+              public fb: FormBuilder,
+              private shareDataService : ShareDataService) { }
 
   ngOnInit(): void {
     this.builForm()
@@ -36,6 +38,7 @@ export class AddComponent implements OnInit {
 
     this._homeService.addItem(data).subscribe(res => {
       if (res) {
+        this.shareDataService.sendData(res)
         this.router.navigate(['/']);
       }
     })

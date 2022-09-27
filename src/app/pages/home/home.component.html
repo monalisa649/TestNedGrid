@@ -12,9 +12,9 @@
     </thead>
     <tbody>
       <tr *ngFor="let data of listData">
-        <td style="cursor: pointer;" (click)="editItem(data.id)">{{data.id}}</td>
-        <td>{{data.title}}</td>
-        <td>{{data.body}}</td>
+        <td style="cursor: pointer;vertical-align:middle" (click)="editItem(data.id)">{{data.id}}</td>
+        <td style="vertical-align:middle">{{data.title}}</td>
+        <td style="vertical-align:middle">{{data.body}}</td>
         <td style="vertical-align:middle"><button type="button" class="btn btn-danger p-1" (click)="removeItem(data.id)"><svg
               xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash"
               viewBox="0 0 16 16">
